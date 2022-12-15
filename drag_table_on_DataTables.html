@@ -147,49 +147,27 @@
 	}
     //function helper
 	function moveRowsTo(table, originalIndex, targetIndex) {
-		//Move up
-		if (originalIndex > targetIndex) {
-			//console.log("drag up");
-			let i = 0;
-			table.rows().every(
-				function (index) {					
-					//console.log(i + ": " + this.data()[0]);
-					var row = this.data();
-					if (i >= targetIndex && i < originalIndex) {
-						row[0]++;
-					}
-					else if (i === originalIndex) {
-						//Set the original Index to target index
-						row[0] = targetIndex;
-					}
-					table.row(this).data(row).draw(false);
-					i++;
+		if (originalIndex === targetIndex)
+			return;
+
+		let i = 0;
+		table.rows().every(
+			function (index) {
+				//console.log(i + ": " + this.data()[2]);
+				var row = this.data();
+				if ((originalIndex > targetIndex) && (i >= targetIndex && i < originalIndex)) {
+					row[0]++;
 				}
-			);
-		}
-		//Move down
-		else if (originalIndex < targetIndex) {
-			//console.log("drag down");
-			let i = 0;
-			table.rows().every(
-				function (index) {
-					//console.log(i + ": " + this.data()[0]);
-					var row = this.data();
-					if (i > originalIndex && i <= targetIndex) {
-						row[0]--;
-					}
-					else if (i === originalIndex) {
-						//Set the original Index to target index
-						row[0] = targetIndex;
-					}
-					table.row(this).data(row).draw(false);
-					i++;
+				else if ((originalIndex < targetIndex) && (i > originalIndex && i <= targetIndex)) {
+					row[0]--;
 				}
-			);
-		}
-		//Same position (no action)
-		else {
-			console.log("Dragging to same position");
-		}
+				else if (i === originalIndex) {
+					//Set the original Index to target index
+					row[0] = targetIndex;
+				}
+				table.row(this).data(row).draw(false);
+				i++;
+			}
+		);
     }
 </script>
